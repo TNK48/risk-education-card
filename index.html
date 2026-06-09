@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Risk Imagination Cards</title>
+<style>
+:root {
+  --bg:#f5f0e6; --paper:#fffdf7; --ink:#202020; --muted:#666;
+  --blue:#274f63; --orange:#c86f25; --line:#e4d8c5;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0; font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic","Yu Gothic UI",Meiryo,sans-serif;
+  background:linear-gradient(180deg,#fffdf8 0%,var(--bg) 100%); color:var(--ink); line-height:1.75;
+}
+.wrap { width:min(900px,100%); margin:0 auto; padding:20px; }
+.hero {
+  background:var(--paper); border:2px solid var(--line); border-radius:28px; padding:26px;
+  box-shadow:0 14px 32px rgba(70,52,30,.12); margin-bottom:20px;
+}
+.kicker { display:inline-block; background:#eef5f7; color:var(--blue); border:1px solid #d7e6eb; border-radius:999px; padding:6px 12px; font-size:13px; font-weight:800; }
+h1 { font-size:clamp(32px,8vw,64px); line-height:1.05; margin:14px 0 10px; color:var(--blue); letter-spacing:.02em; }
+.lead { font-size:clamp(16px,4vw,20px); margin:0; }
+.rule {
+  margin-top:18px; padding:14px 16px; background:#fff6e8; border-left:6px solid var(--orange);
+  border-radius:14px; font-weight:700;
+}
+.navgrid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px; margin:18px 0 28px;
+}
+.navgrid a {
+  text-decoration:none; color:var(--ink); background:white; border:1px solid var(--line); border-radius:18px; padding:14px;
+  display:flex; gap:10px; align-items:center; box-shadow:0 6px 16px rgba(70,52,30,.08); font-weight:800;
+}
+.navgrid span {
+  flex:none; width:38px; height:38px; border-radius:50%; background:var(--blue); color:white; display:grid; place-items:center;
+}
+.card {
+  min-height:calc(100vh - 32px); margin:0 0 28px; padding:clamp(22px,5vw,44px); background:var(--paper);
+  border:2px solid var(--line); border-radius:30px; box-shadow:0 18px 42px rgba(70,52,30,.14);
+  display:flex; flex-direction:column; gap:18px;
+}
+.topline { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+.number,.tag { display:inline-block; border-radius:999px; padding:7px 13px; font-weight:900; font-size:13px; }
+.number { background:#eef5f7; color:var(--blue); }
+.tag { background:#fff1df; color:var(--orange); }
+h2 { margin:0; font-size:clamp(26px,7vw,46px); line-height:1.2; color:var(--blue); }
+.mainq { margin:0; font-size:clamp(22px,5.5vw,34px); font-weight:900; line-height:1.55; }
+.aim { background:#f7fbfc; border-left:6px solid var(--blue); border-radius:14px; padding:14px 16px; font-size:clamp(15px,3.6vw,18px); }
+.rules { font-size:13px; color:var(--muted); border-top:1px dashed var(--line); padding-top:12px; }
+.actions { margin-top:auto; display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.actions a { text-align:center; text-decoration:none; color:white; background:var(--blue); padding:14px; border-radius:16px; font-weight:900; }
+.actions a:first-child { background:#806b55; }
+.note { color:var(--muted); font-size:13px; text-align:center; margin:20px 0 8px; }
+@media (max-width:560px) { .wrap { padding:12px; } .hero { padding:20px; } .actions { grid-template-columns:1fr; } .card { min-height:auto; } }
+@media print { .hero,.navgrid,.actions,.note { display:none; } body { background:white; } .card { min-height:auto; page-break-after:always; box-shadow:none; border:1px solid #999; } }
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+  <section class="hero">
+    <span class="kicker">Safety Reflection Prototype / No JavaScript</span>
+    <h1>Risk Imagination Cards</h1>
+    <p class="lead">
+      安全衛生を「正解探し」で終わらせず、Know（知る）→ Think（考える）→ Imagine（想像する）を繰り返すための問いかけカードです。
+    </p>
+    <div class="rule">
+      使い方：1枚選ぶ → 1〜3分考える → 近くの人と話す。<br>
+      目的：答えを揃えることではなく、考え方・感じ方・職場の見え方を共有すること。
+    </div>
+  </section>
+
+  <nav class="navgrid" aria-label="カード一覧">
+    <a href="#card01"><span>01</span>言えなかった違和感</a>
+<a href="#card02"><span>02</span>誰のせいを探す空気</a>
+<a href="#card03"><span>03</span>あの時の自分を責めずに見る</a>
+<a href="#card04"><span>04</span>大丈夫の裏側</a>
+<a href="#card05"><span>05</span>注意と説教の境目</a>
+<a href="#card06"><span>06</span>最悪の一日の始まり</a>
+<a href="#card07"><span>07</span>明日起きたら後悔すること</a>
+<a href="#card08"><span>08</span>ルールの背後にある事故</a>
+<a href="#card09"><span>09</span>危険ではないけど不安</a>
+<a href="#card10"><span>10</span>10年後にあり得ないと言われること</a>
+<a href="#card11"><span>11</span>作業を止めていいは本当か</a>
+<a href="#card12"><span>12</span>忙しさが削るもの</a>
+<a href="#card13"><span>13</span>なぜ続いているのかわからない作業</a>
+<a href="#card14"><span>14</span>事故ゼロの副作用</a>
+<a href="#card15"><span>15</span>この仕組みを新人に渡せるか</a>
+<a href="#card16"><span>16</span>伝えたつもり</a>
+<a href="#card17"><span>17</span>飲み込んだ一言</a>
+<a href="#card18"><span>18</span>新人に一つだけ伝えるなら</a>
+<a href="#card19"><span>19</span>いつもと違う人</a>
+<a href="#card20"><span>20</span>よく言ってくれた</a>
+<a href="#card21"><span>21</span>今日の集中力</a>
+<a href="#card22"><span>22</span>慣れたから大丈夫</a>
+<a href="#card23"><span>23</span>これくらいなら</a>
+<a href="#card24"><span>24</span>5年後の自分からの声</a>
+<a href="#card25"><span>25</span>突然休んだら困ること</a>
+<a href="#card26"><span>26</span>最初に驚いたこと</a>
+<a href="#card27"><span>27</span>一年後に振り返るなら</a>
+<a href="#card28"><span>28</span>子どもや若い人に語るなら</a>
+<a href="#card29"><span>29</span>100年後も人間が担うこと</a>
+<a href="#card30"><span>30</span>もう一人の自分から一言</a>
+  </nav>
+
+  
+    <article class="card" id="card01">
+      <div class="topline">
+        <span class="number">Card 01 / 30</span>
+        <span class="tag">心理的安全性・Just Culture</span>
+      </div>
+      <h2>言えなかった違和感</h2>
+      <p class="mainq">最近、「ちょっと変だな」と思ったのに、その場では言えなかったことはありますか？</p>
+      <div class="aim"><strong>ねらい：</strong>違和感を事故前の重要な情報として扱い、発言しにくさの背景を考える。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card02">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card02">
+      <div class="topline">
+        <span class="number">Card 02 / 30</span>
+        <span class="tag">心理的安全性・Just Culture</span>
+      </div>
+      <h2>誰のせいを探す空気</h2>
+      <p class="mainq">もし職場で何か起きたとき、最初に「誰のせい？」を探す空気がありますか？</p>
+      <div class="aim"><strong>ねらい：</strong>個人非難ではなく、情報共有を妨げる組織文化を可視化する。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card03">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card03">
+      <div class="topline">
+        <span class="number">Card 03 / 30</span>
+        <span class="tag">心理的安全性・Just Culture</span>
+      </div>
+      <h2>あの時の自分を責めずに見る</h2>
+      <p class="mainq">過去のヒヤリや失敗を一つ思い出したとき、当時の自分は何を見落としていたのでしょうか？</p>
+      <div class="aim"><strong>ねらい：</strong>失敗を断罪ではなく、当時の制約や思い込みを含めた学習材料にする。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card04">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card04">
+      <div class="topline">
+        <span class="number">Card 04 / 30</span>
+        <span class="tag">心理的安全性・Just Culture</span>
+      </div>
+      <h2>大丈夫の裏側</h2>
+      <p class="mainq">最近、誰かが「大丈夫です」と言ったとき、本当は大丈夫ではなさそうだと感じたことはありますか？</p>
+      <div class="aim"><strong>ねらい：</strong>言葉以外の表情・沈黙・動作をリスク情報として捉える。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card05">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card05">
+      <div class="topline">
+        <span class="number">Card 05 / 30</span>
+        <span class="tag">心理的安全性・Just Culture</span>
+      </div>
+      <h2>注意と説教の境目</h2>
+      <p class="mainq">誰かに注意するとき、その言葉は相手に「助け」として届いていますか？それとも「責め」として届いていますか？</p>
+      <div class="aim"><strong>ねらい：</strong>安全指導を、相手が次も相談できる対話へ変える。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card06">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card06">
+      <div class="topline">
+        <span class="number">Card 06 / 30</span>
+        <span class="tag">リスク想像力・KYTの深化</span>
+      </div>
+      <h2>最悪の一日の始まり</h2>
+      <p class="mainq">今日の作業が「最悪の一日」につながるとしたら、最初の小さなきっかけは何だと思いますか？</p>
+      <div class="aim"><strong>ねらい：</strong>事故を結果ではなく、始まりの兆候として想像する。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card07">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card07">
+      <div class="topline">
+        <span class="number">Card 07 / 30</span>
+        <span class="tag">リスク想像力・KYTの深化</span>
+      </div>
+      <h2>明日起きたら後悔すること</h2>
+      <p class="mainq">チームで最も起きてほしくない事故が明日起きたとしたら、私たちは何を後悔すると思いますか？</p>
+      <div class="aim"><strong>ねらい：</strong>未来の後悔から逆算して、今日の行動を考える。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card08">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card08">
+      <div class="topline">
+        <span class="number">Card 08 / 30</span>
+        <span class="tag">リスク想像力・KYTの深化</span>
+      </div>
+      <h2>ルールの背後にある事故</h2>
+      <p class="mainq">今ある安全ルールの一つは、どんな事故や失敗の上に作られたと思いますか？</p>
+      <div class="aim"><strong>ねらい：</strong>ルールを暗記ではなく、過去の事故からの学習として理解する。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card09">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card09">
+      <div class="topline">
+        <span class="number">Card 09 / 30</span>
+        <span class="tag">リスク想像力・KYTの深化</span>
+      </div>
+      <h2>危険ではないけど不安</h2>
+      <p class="mainq">今の職場に、「明らかに危険とは言いにくいけれど、なんとなく不安」なものはいくつありますか？</p>
+      <div class="aim"><strong>ねらい：</strong>まだ言語化されていないリスクの芽を拾い上げる。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card10">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card10">
+      <div class="topline">
+        <span class="number">Card 10 / 30</span>
+        <span class="tag">リスク想像力・KYTの深化</span>
+      </div>
+      <h2>10年後にあり得ないと言われること</h2>
+      <p class="mainq">10年後の人が今の職場を見たら、「昔はこれが当たり前だったの？」と驚くことは何だと思いますか？</p>
+      <div class="aim"><strong>ねらい：</strong>現在の当たり前を未来の視点から問い直す。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card11">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card11">
+      <div class="topline">
+        <span class="number">Card 11 / 30</span>
+        <span class="tag">仕組み・組織文化</span>
+      </div>
+      <h2>作業を止めていいは本当か</h2>
+      <p class="mainq">自分の職場で「安全のためなら作業を止めていい」は、本当に通用しますか？それとも建前ですか？</p>
+      <div class="aim"><strong>ねらい：</strong>停止権限の実効性と、止めにくさを生む条件を考える。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card12">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card12">
+      <div class="topline">
+        <span class="number">Card 12 / 30</span>
+        <span class="tag">仕組み・組織文化</span>
+      </div>
+      <h2>忙しさが削るもの</h2>
+      <p class="mainq">忙しい時や急いでいる時、最初に削られやすい安全行動は何ですか？</p>
+      <div class="aim"><strong>ねらい：</strong>時間圧と安全行動の関係を、個人責任にせず考える。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card13">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card13">
+      <div class="topline">
+        <span class="number">Card 13 / 30</span>
+        <span class="tag">仕組み・組織文化</span>
+      </div>
+      <h2>なぜ続いているのかわからない作業</h2>
+      <p class="mainq">職場で「正直、なんでこれをやっているんだろう」と思いながら続けている作業やルールはありますか？</p>
+      <div class="aim"><strong>ねらい：</strong>形骸化したルールや作業の目的を問い直す。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card14">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card14">
+      <div class="topline">
+        <span class="number">Card 14 / 30</span>
+        <span class="tag">仕組み・組織文化</span>
+      </div>
+      <h2>事故ゼロの副作用</h2>
+      <p class="mainq">あなたの職場の「事故ゼロ」や「ミスを出さない」という目標は、報告しやすさを高めていますか？それとも隠しやすさを生んでいますか？</p>
+      <div class="aim"><strong>ねらい：</strong>KPIが現場行動に与える副作用を考える。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card15">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card15">
+      <div class="topline">
+        <span class="number">Card 15 / 30</span>
+        <span class="tag">仕組み・組織文化</span>
+      </div>
+      <h2>この仕組みを新人に渡せるか</h2>
+      <p class="mainq">今の職場の安全の仕組みを、そのまま新人に渡しても大丈夫だと言えますか？</p>
+      <div class="aim"><strong>ねらい：</strong>属人的な安全から、継承できる安全へ移行する視点を持つ。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card16">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card16">
+      <div class="topline">
+        <span class="number">Card 16 / 30</span>
+        <span class="tag">伝達・対話・関係性</span>
+      </div>
+      <h2>伝えたつもり</h2>
+      <p class="mainq">最近「伝えたつもり」だったけれど、相手には十分伝わっていなかったかもしれない安全情報は何ですか？</p>
+      <div class="aim"><strong>ねらい：</strong>リスク情報を、相手が理解し使える形に翻訳する。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card17">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card17">
+      <div class="topline">
+        <span class="number">Card 17 / 30</span>
+        <span class="tag">伝達・対話・関係性</span>
+      </div>
+      <h2>飲み込んだ一言</h2>
+      <p class="mainq">「これ、言った方がいいかな」と思ったけれど飲み込んだ言葉は、最近ありますか？</p>
+      <div class="aim"><strong>ねらい：</strong>発言しにくさの背景を見つけ、対話の入口を増やす。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card18">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card18">
+      <div class="topline">
+        <span class="number">Card 18 / 30</span>
+        <span class="tag">伝達・対話・関係性</span>
+      </div>
+      <h2>新人に一つだけ伝えるなら</h2>
+      <p class="mainq">明日、自分の仕事を新しい人に引き継ぐとしたら、マニュアルには書けないけれど絶対伝えたいことは何ですか？</p>
+      <div class="aim"><strong>ねらい：</strong>暗黙知を共有可能な安全知に変える。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card19">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card19">
+      <div class="topline">
+        <span class="number">Card 19 / 30</span>
+        <span class="tag">伝達・対話・関係性</span>
+      </div>
+      <h2>いつもと違う人</h2>
+      <p class="mainq">今日関わった人の中で、「いつもと違うかも」と感じた人はいましたか？</p>
+      <div class="aim"><strong>ねらい：</strong>仲間の変化をリスク情報として捉え、支え合いにつなげる。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card20">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card20">
+      <div class="topline">
+        <span class="number">Card 20 / 30</span>
+        <span class="tag">伝達・対話・関係性</span>
+      </div>
+      <h2>よく言ってくれた</h2>
+      <p class="mainq">過去に誰かから「よく言ってくれた」と感謝された注意や声かけはありますか？</p>
+      <div class="aim"><strong>ねらい：</strong>よい介入が生まれる条件を言語化する。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card21">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card21">
+      <div class="topline">
+        <span class="number">Card 21 / 30</span>
+        <span class="tag">自己認知・コンディション</span>
+      </div>
+      <h2>今日の集中力</h2>
+      <p class="mainq">今日の自分の集中力を10点満点でつけるとしたら何点ですか？その理由は何ですか？</p>
+      <div class="aim"><strong>ねらい：</strong>自分の状態を、作業リスクの一部として扱う。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card22">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card22">
+      <div class="topline">
+        <span class="number">Card 22 / 30</span>
+        <span class="tag">自己認知・コンディション</span>
+      </div>
+      <h2>慣れたから大丈夫</h2>
+      <p class="mainq">今、自分が「慣れたから大丈夫」と思っている作業を一つ挙げるとしたら何ですか？</p>
+      <div class="aim"><strong>ねらい：</strong>熟練と油断の境目を見つめ直す。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card23">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card23">
+      <div class="topline">
+        <span class="number">Card 23 / 30</span>
+        <span class="tag">自己認知・コンディション</span>
+      </div>
+      <h2>これくらいなら</h2>
+      <p class="mainq">最近「まあ、これくらいなら」と少し省略したり、後回しにしたことはありますか？</p>
+      <div class="aim"><strong>ねらい：</strong>小さなリスクテイキングを、責めずに構造として捉える。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card24">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card24">
+      <div class="topline">
+        <span class="number">Card 24 / 30</span>
+        <span class="tag">自己認知・コンディション</span>
+      </div>
+      <h2>5年後の自分からの声</h2>
+      <p class="mainq">5年後の自分が、今日の自分の働き方を見ていたら、どこに「そこ、気をつけて」と声をかけると思いますか？</p>
+      <div class="aim"><strong>ねらい：</strong>未来の自己視点から、現在の判断を見直す。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card25">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card25">
+      <div class="topline">
+        <span class="number">Card 25 / 30</span>
+        <span class="tag">自己認知・コンディション</span>
+      </div>
+      <h2>突然休んだら困ること</h2>
+      <p class="mainq">もし明日、突然自分が休むことになったら、自分の仕事で一番困る人は誰ですか？どう困りますか？</p>
+      <div class="aim"><strong>ねらい：</strong>属人化を、安全上のリスクとして考える。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card26">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card26">
+      <div class="topline">
+        <span class="number">Card 26 / 30</span>
+        <span class="tag">学習・継承・未来</span>
+      </div>
+      <h2>最初に驚いたこと</h2>
+      <p class="mainq">この職場に入ったばかりの頃、「え、こんな感じでいいの？」と驚いたことはありますか？今はもう驚かなくなっていますか？</p>
+      <div class="aim"><strong>ねらい：</strong>新鮮な違和感を失わず、職場改善に活かす。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card27">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card27">
+      <div class="topline">
+        <span class="number">Card 27 / 30</span>
+        <span class="tag">学習・継承・未来</span>
+      </div>
+      <h2>一年後に振り返るなら</h2>
+      <p class="mainq">1年後、チームで「あの時、踏ん張ってよかった」と振り返るとしたら、それはどんな場面ですか？</p>
+      <div class="aim"><strong>ねらい：</strong>望ましい未来から逆算して、今の行動を考える。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card28">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card28">
+      <div class="topline">
+        <span class="number">Card 28 / 30</span>
+        <span class="tag">学習・継承・未来</span>
+      </div>
+      <h2>子どもや若い人に語るなら</h2>
+      <p class="mainq">自分の仕事について子どもや若い人に話すとき、安全衛生の面で一番誇れることは何ですか？</p>
+      <div class="aim"><strong>ねらい：</strong>安全衛生を、次世代への責任として考える。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card29">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card29">
+      <div class="topline">
+        <span class="number">Card 29 / 30</span>
+        <span class="tag">学習・継承・未来</span>
+      </div>
+      <h2>100年後も人間が担うこと</h2>
+      <p class="mainq">100年後の作業現場では、今の仕事はどう変わっていると思いますか？その中で、人間が必ず担っている部分は何でしょうか？</p>
+      <div class="aim"><strong>ねらい：</strong>技術変化の中でも残る、人間の判断力・想像力を考える。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card30">次のカードへ</a>
+      </div>
+    </article>
+    
+    <article class="card" id="card30">
+      <div class="topline">
+        <span class="number">Card 30 / 30</span>
+        <span class="tag">学習・継承・未来</span>
+      </div>
+      <h2>もう一人の自分から一言</h2>
+      <p class="mainq">もしこの1ヶ月の自分を、もう一人の自分が観察していたとしたら、何と声をかけますか？</p>
+      <div class="aim"><strong>ねらい：</strong>内省を締めくくり、次の問いへつなぐ。</div>
+      <div class="rules">
+        ルール：人を責めない。正解を探さない。話さない自由を認める。まず「なるほど」から。
+      </div>
+      <div class="actions">
+        <a href="#top">一覧へ戻る</a>
+        <a href="#card01">次のカードへ</a>
+      </div>
+    </article>
+    
+
+  <p class="note">Prototype for J-SHIFT / Risk Communication 3.0</p>
+</div>
+</body>
+</html>
